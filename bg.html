@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacker Console - Unity Horror Game Challenge</title>
+<style>
+  body {
+    background-color: black;
+    color: green;
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .console {
+    padding: 20px;
+    border: 2px solid green;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    background-color: black;
+    width: 80%;
+    max-width: 600px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .output {
+    color: lime;
+    animation: typing 4s steps(40) 1s forwards, blink-caret 0.75s infinite, text-scale 1s 1s infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+
+  .prompt {
+    color: green;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink-caret {
+    from, to {
+      border-right-color: transparent;
+    }
+    50% {
+      border-right-color: lime;
+    }
+  }
+
+  @keyframes text-scale {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+
+  .glitch {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 255, 0, 0.02);
+    pointer-events: none;
+    z-index: -1;
+    animation: glitch 1s infinite;
+  }
+
+  @keyframes glitch {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    20%, 60% {
+      transform: translate(-5px, -5px);
+    }
+    40% {
+      transform: translate(5px, 5px);
+    }
+    80% {
+      transform: translate(-2px, 2px);
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="console" id="console-container">
+    <div class="glitch"></div>
+    <div class="prompt">> <span class='input' id='user-input'></span></div>
+  </div>
+  <script>
+    const consoleContainer = document.getElementById("console-container");
+    let outputIndex = 0;
+
+    function simulateConsoleOutput() {
+      const outputContainer = document.createElement("div");
+      outputContainer.className = "output";
+      const message = document.createTextNode(getMessageByIndex(outputIndex));
+      outputContainer.appendChild(message);
+      consoleContainer.appendChild(outputContainer);
+      outputIndex = (outputIndex + 1) % 19;
+      consoleContainer.scrollTop = consoleContainer.scrollHeight;
+      setTimeout(simulateConsoleOutput, 400);
+    }
+
+    function getMessageByIndex(index) {
+      const messages = [
+        "╔═══════════════════════════════════════╗",
+        "║        HACKER CONSOLE TERMINAL        ║",
+        "║  UNITY 3D HORROR GAME CHALLENGE       ║",
+        "╠═══════════════════════════════════════╣",
+        "║ [CONNECTING...]                      ║",
+        "║ [AUTHENTICATING...]                  ║",
+        "║ [ACCESS GRANTED]                     ║",
+        "║ [WELCOME, HACKER]                    ║",
+        "║                                       ║",
+        "║ [MISSION: CREATE HORROR GAME]        ║",
+        "║                                       ║",
+        "║ [TASK: HARNESS C# SCRIPTING]         ║",
+        "║ [TASK: DESIGN IMMERSIVE ENVIRONMENTS]║",
+        "║ [TASK: CRAFT UNSETTLING AUDIO]       ║",
+        "║ [TASK: BUILD TENSION]               ║",
+        "║ [TASK: SURVIVE JUMPSCARES]           ║",
+        "║ [TASK: UNLEASH CREATIVITY]          ║",
+        "║                                       ║"
+      ];
+      return messages[index];
+    }
+
+    simulateConsoleOutput();
+  </script>
+</body>
+</html>
